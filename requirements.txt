@@ -20,7 +20,7 @@ ipython
 langchain_community
 tenacity==8.3.0
 psutil
-
+langchain-anthropic
 
 
 
