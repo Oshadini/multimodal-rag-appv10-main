@@ -257,7 +257,7 @@ if uploaded_file is not None:
       elif immage_sum_model == 'gemini-1.5-pro-latest':
         #model = ChatGoogleGenerativeAI(model="gemini-pro-vision", max_output_tokens=1024)
         model = ChatGoogleGenerativeAI(model="gemini-1.5-pro-latest", max_output_tokens=1024)
-      elif time_hist_color == 'Claude 3.5 Sonnet':
+      elif immage_sum_model == 'Claude 3.5 Sonnet':
         model = ChatAnthropic(
           temperature=0, model="claude-3-5-sonnet-20240620", max_output_tokens=1024
         )
@@ -509,7 +509,7 @@ if uploaded_file is not None:
               model = ChatOpenAI(temperature = gen_model_temperature,model="gpt-4-vision-preview", openai_api_key = openai.api_key, max_tokens=1024)
             except Exception as e:
               model = ChatOpenAI(temperature = gen_model_temperature,model="gpt-4-turbo", openai_api_key = openai.api_key, max_tokens=1024)
-        elif time_hist_color == 'Claude 3.5 Sonnet':
+        elif generation_model == 'Claude 3.5 Sonnet':
             model = ChatAnthropic(
             temperature=0, model="claude-3-5-sonnet-20240620", max_output_tokens=1024
         )
@@ -544,6 +544,10 @@ if uploaded_file is not None:
               model = ChatOpenAI(temperature = gen_model_temperature, model="gpt-4-vision-preview", openai_api_key = openai.api_key, max_tokens=1024)
             except Exception as e:
               model = ChatOpenAI(temperature = gen_model_temperature, model="gpt-4-turbo", openai_api_key = openai.api_key, max_tokens=1024)
+        elif generation_model == 'Claude 3.5 Sonnet':
+            model = ChatAnthropic(
+            temperature=0, model="claude-3-5-sonnet-20240620", max_output_tokens=1024
+        )
         else:
             model = ChatOpenAI(temperature = gen_model_temperature, model="gpt-4o", openai_api_key = openai.api_key, max_tokens=1024)
     
