@@ -46,6 +46,7 @@ from PIL import Image
 from langchain_community.chat_models import ChatOpenAI
 from chromadb.config import Settings
 import chromadb
+from langchain_anthropic import ChatAnthropic
 
 
 
@@ -54,6 +55,7 @@ os.environ["LANGCHAIN_PROJECT"] = "multi_model_rag_mvr"
 os.environ["LANGCHAIN_ENDPOINT"] = "https://api.smith.langchain.com"
 api_key = st.secrets["GOOGLE_API_KEY"]
 openai.api_key = st.secrets["OPENAI_API_KEY"]
+claude_api_key = st.secrets["CLAUDE_API_KEY"]
 
 
 
@@ -65,16 +67,16 @@ with open('style.css') as f:
 st.sidebar.header('Multimodal RAG App`PDF`')
 
 st.sidebar.subheader('Text Summarization Model')
-time_hist_color = st.sidebar.selectbox('Summarize by', ('gpt-4-turbo', 'gemini-1.5-pro-latest', 'gpt-4o','llama3'))
+time_hist_color = st.sidebar.selectbox('Summarize by', ('gpt-4-turbo', 'gemini-1.5-pro-latest', 'gpt-4o', 'Claude 3.5 Sonnet', 'llama3'))
 
 st.sidebar.subheader('Image Summarization Model')
-immage_sum_model = st.sidebar.selectbox('Summarize by', ('gpt-4-vision-preview', 'gemini-1.5-pro-latest','gpt-4o'))
+immage_sum_model = st.sidebar.selectbox('Summarize by', ('gpt-4-vision-preview', 'gemini-1.5-pro-latest','gpt-4o', 'Claude 3.5 Sonnet'))
 
 #st.sidebar.subheader('Embedding Model')
 #embedding_model = st.sidebar.selectbox('Select data', ('OpenAIEmbeddings', 'GoogleGenerativeAIEmbeddings'))
 
 st.sidebar.subheader('Response Generation Model')
-generation_model = st.sidebar.selectbox('Select data', ('gpt-4-vision-preview', 'gemini-1.5-pro-latest','gpt-4o'))
+generation_model = st.sidebar.selectbox('Select data', ('gpt-4-vision-preview', 'gemini-1.5-pro-latest','gpt-4o','Claude 3.5 Sonnet'))
 
 
 st.sidebar.subheader('Maximum Concurrency')
@@ -195,6 +197,11 @@ if uploaded_file is not None:
             #temperature=0, model="gemini-pro", max_output_tokens=1024
           temperature=0, model="gemini-1.5-pro-latest", max_output_tokens=1024
         )
+          
+      elif time_hist_color == 'Claude 3.5 Sonnet':
+        model = ChatAnthropic(
+          temperature=0, model="claude-3-5-sonnet-20240620", max_output_tokens=1024
+        )
       else:
         model = ChatOpenAI(model="gpt-4o", openai_api_key = openai.api_key, max_tokens=1024)
 
@@ -250,6 +257,10 @@ if uploaded_file is not None:
       elif immage_sum_model == 'gemini-1.5-pro-latest':
         #model = ChatGoogleGenerativeAI(model="gemini-pro-vision", max_output_tokens=1024)
         model = ChatGoogleGenerativeAI(model="gemini-1.5-pro-latest", max_output_tokens=1024)
+      elif time_hist_color == 'Claude 3.5 Sonnet':
+        model = ChatAnthropic(
+          temperature=0, model="claude-3-5-sonnet-20240620", max_output_tokens=1024
+        )
       else:
         model = ChatOpenAI(model="gpt-4o", openai_api_key = openai.api_key, max_tokens=1024)
     
@@ -498,6 +509,10 @@ if uploaded_file is not None:
               model = ChatOpenAI(temperature = gen_model_temperature,model="gpt-4-vision-preview", openai_api_key = openai.api_key, max_tokens=1024)
             except Exception as e:
               model = ChatOpenAI(temperature = gen_model_temperature,model="gpt-4-turbo", openai_api_key = openai.api_key, max_tokens=1024)
+        elif time_hist_color == 'Claude 3.5 Sonnet':
+            model = ChatAnthropic(
+            temperature=0, model="claude-3-5-sonnet-20240620", max_output_tokens=1024
+        )
         else:
             model = ChatOpenAI(temperature = gen_model_temperature,model="gpt-4o", openai_api_key = openai.api_key, max_tokens=1024)
 
