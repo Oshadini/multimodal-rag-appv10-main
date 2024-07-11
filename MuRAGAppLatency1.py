@@ -59,6 +59,7 @@ claude_api_key = st.secrets["CLAUDE_API_KEY"]
 
 
 
+
 st.set_page_config(page_title="Multimodal RAG App", layout='wide', initial_sidebar_state='expanded')
 
 with open('style.css') as f:
@@ -200,7 +201,7 @@ if uploaded_file is not None:
           
       elif time_hist_color == 'Claude 3.5 Sonnet':
         model = ChatAnthropic(
-          temperature=0, model="claude-3-5-sonnet-20240620", max_output_tokens=1024
+          temperature=0, model="claude-3-5-sonnet-20240620", api_key=claude_api_key, max_output_tokens=1024
         )
       else:
         model = ChatOpenAI(model="gpt-4o", openai_api_key = openai.api_key, max_tokens=1024)
@@ -259,7 +260,7 @@ if uploaded_file is not None:
         model = ChatGoogleGenerativeAI(model="gemini-1.5-pro-latest", max_output_tokens=1024)
       elif immage_sum_model == 'Claude 3.5 Sonnet':
         model = ChatAnthropic(
-          temperature=0, model="claude-3-5-sonnet-20240620", max_output_tokens=1024
+          temperature=0, model="claude-3-5-sonnet-20240620", api_key=claude_api_key, max_output_tokens=1024
         )
       else:
         model = ChatOpenAI(model="gpt-4o", openai_api_key = openai.api_key, max_tokens=1024)
@@ -511,7 +512,7 @@ if uploaded_file is not None:
               model = ChatOpenAI(temperature = gen_model_temperature,model="gpt-4-turbo", openai_api_key = openai.api_key, max_tokens=1024)
         elif generation_model == 'Claude 3.5 Sonnet':
             model = ChatAnthropic(
-            temperature=0, model="claude-3-5-sonnet-20240620", max_output_tokens=1024
+            temperature=0, model="claude-3-5-sonnet-20240620", api_key=claude_api_key, max_output_tokens=1024
         )
         else:
             model = ChatOpenAI(temperature = gen_model_temperature,model="gpt-4o", openai_api_key = openai.api_key, max_tokens=1024)
@@ -546,7 +547,7 @@ if uploaded_file is not None:
               model = ChatOpenAI(temperature = gen_model_temperature, model="gpt-4-turbo", openai_api_key = openai.api_key, max_tokens=1024)
         elif generation_model == 'Claude 3.5 Sonnet':
             model = ChatAnthropic(
-            temperature=0, model="claude-3-5-sonnet-20240620", max_output_tokens=1024
+            temperature=0, model="claude-3-5-sonnet-20240620", api_key=claude_api_key, max_output_tokens=1024
         )
         else:
             model = ChatOpenAI(temperature = gen_model_temperature, model="gpt-4o", openai_api_key = openai.api_key, max_tokens=1024)
