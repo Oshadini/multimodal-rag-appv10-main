@@ -657,7 +657,7 @@ if uploaded_file is not None:
                       
                       found_image = True  # Set the flag to True to indicate that an image has been found
                       
-                      break
+                      #break
                   #client.delete_collection("mm_rag_mistral04") 
         
           
