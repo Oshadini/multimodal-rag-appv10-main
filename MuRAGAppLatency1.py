@@ -98,7 +98,7 @@ Multimodal RAG App with Multi Vector Retriever
 
 st.header('Multimodal RAG App',divider='rainbow')
 st.write("Empower your research journey with Multimodal RAG App: Your intuitive partner for analyzing, summarizing, and answering your specific questions on documents")
-uploaded_file = st.file_uploader(label = "Upload your file",type="pdf")
+uploaded_file.seek(0) = st.file_uploader(label = "Upload your file",type="pdf")
 bullet_point = "◇"
 
 if uploaded_file is not None:
